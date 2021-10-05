@@ -1,0 +1,19 @@
+{
+  "name": "shopping-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:0x0th30/shopping-api.git",
+  "author": "Theo Silva <theodorotheodore@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5"
+  },
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "test": "jest"
+  }
+}
