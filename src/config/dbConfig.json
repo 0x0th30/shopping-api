@@ -1,0 +1,12 @@
+{
+    "dialect": "postgres",
+    "host": "172.17.0.2",
+    "database": "shopping_api",
+    "username": "postgres",
+    "password": "postgres",
+    "define": {
+        "timestamps": true,
+        "underscored": true,
+        "underscoredAll": true
+    }
+}
