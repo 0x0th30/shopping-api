@@ -1,3 +1,5 @@
+const Item = require('../models/Item');
+
 module.exports = {
     async storeItem (req, res) {
         const item = { 
@@ -5,7 +7,7 @@ module.exports = {
             quantity: req.body.quantity,
         };
 
-        console.log(item);
+        const response = await Item.create(item);
 
         res.json(item);
     }
