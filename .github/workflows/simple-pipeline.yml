@@ -2,7 +2,7 @@ name: Unity tests
 
 on:
   push:
-    develop:
+    branches:
       - develop
 
   jobs:
