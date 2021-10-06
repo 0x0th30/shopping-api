@@ -1,0 +1,16 @@
+name: Unity tests
+
+on:
+  push:
+    develop:
+      - develop
+
+  job:
+    build:
+      run-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Install modules
+          run: yarn
+        - name: Running tests
+          run: yarn test
