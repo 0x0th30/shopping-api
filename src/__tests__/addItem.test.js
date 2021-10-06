@@ -2,7 +2,7 @@ const axios = require('axios');
 
 
 function requireRoute () {
-    const res = axios.post('http://localhost:3333/items', {
+    const res = axios.post('http://localhost:3333/items/create', {
         item: 'energy drink',
         quantity: 5
     });
