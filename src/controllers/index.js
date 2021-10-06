@@ -3,12 +3,17 @@ const Item = require('../models/Item');
 
 module.exports = {
     async storeItem (req, res) {
-        const item = { 
+
+        if(!req.body.item || !req.body.quantity) {
+            return res.status(400).json({ error: 'Missing arguments!' })
+        }
+
+        let item = { 
             item: req.body.item, 
             quantity: req.body.quantity,
         };
 
-        const response = await Item.create(item);
+        item = await Item.create(item);
 
         res.json(item);
     },
