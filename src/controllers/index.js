@@ -7,7 +7,7 @@ module.exports = {
         if(!req.body.item || !req.body.quantity) {
             return res.status(400).json({ 
                 error: 'Missing arguments!' 
-            })
+            });
         }
 
         let item = { 
@@ -31,7 +31,7 @@ module.exports = {
             if(cart[0] == undefined || cart[0] == null) {
                 return res.status(400).json({
                     error: 'Not available results to this search!'
-                })
+                });
             }
     
             return res.json(cart);
@@ -40,7 +40,52 @@ module.exports = {
         catch(err) {
             return res.status(400).json({
                 error: 'Invalid search!'
+            });
+        }
+    },
+
+    async updateItem(req, res) {
+        
+        if(!req.body.id) {
+            return res.status(400).json({
+                error: 'Missing item id!'
+            });
+        }
+
+        if(!req.body.item && !req.body.quantity) {
+            return res.status(400).json({
+                error: 'Nothing to update!'
             })
         }
+
+        let item = {
+            id: req.body.id,
+            item: req.body.item,
+            quantity: req.body.quantity,
+        };
+
+        const update = await Item.update({
+            item: item.item,
+            quantity: item.quantity,
+        },
+        {
+            where: {
+                id: item.id,
+            }
+        });
+
+        item = await Item.findOne({
+            where: {
+                id: item.id
+            }
+        })
+
+        if(item === null) {
+            return res.json({
+                error: "Not founded item!"
+            })
+        }
+
+        return res.json(item);
     }
 }
