@@ -5,7 +5,9 @@ module.exports = {
     async storeItem (req, res) {
 
         if(!req.body.item || !req.body.quantity) {
-            return res.status(400).json({ error: 'Missing arguments!' })
+            return res.status(400).json({ 
+                error: 'Missing arguments!' 
+            })
         }
 
         let item = { 
@@ -21,16 +23,24 @@ module.exports = {
     async viewCart(req, res) {
         const filters = req.query;
 
-        const cart = await Item.findAll({
-            where: filters
-        });
+        try {
+            const cart = await Item.findAll({
+                where: filters
+            });
 
-        if(cart[0] == undefined || cart[0] == null) {
-            return res.json({
-                error: 'Not available results to this search!'
-            })
+            if(cart[0] == undefined || cart[0] == null) {
+                return res.status(400).json({
+                    error: 'Not available results to this search!'
+                })
+            }
+    
+            return res.json(cart);
         }
 
-        res.json(cart);
+        catch(err) {
+            return res.status(400).json({
+                error: 'Invalid search!'
+            })
+        }
     }
 }

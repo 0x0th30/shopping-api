@@ -15,4 +15,4 @@ class Item extends Model {
     }
 }
 
-module.exports = Item;
+module.exports = Item; 
