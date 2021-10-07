@@ -25,6 +25,12 @@ module.exports = {
             where: filters
         });
 
+        if(cart[0] == undefined || cart[0] == null) {
+            return res.json({
+                error: 'Not available results to this search!'
+            })
+        }
+
         res.json(cart);
     }
 }
