@@ -6,11 +6,20 @@ Item.init(connection);
 
 test('Testing item addition route availability', async () => {
     const testAvailability = await axios.post('http://localhost:3333/items/create', {
-        item: 'energy drink',
+        item: 'red bull',
         quantity: 5
     });
 
-    expect(testAvailability.status).toBe(200);
+    if(!testAvailability.data.error) {
+        let item = testAvailability.data;
+        item = await Item.destroy({
+            where: {
+                id: item.id,
+            }
+        });
+    }
+
+    expect(testAvailability.data.error).toBeFalsy();
 })
 
 test('Testing null body post request', async () => {

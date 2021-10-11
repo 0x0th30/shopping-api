@@ -21,24 +21,27 @@ module.exports = {
 
     async viewCart(req, res) {
         const filters = req.query;
+        const filterSize = Object.keys(filters).length;
 
         try {
             const cart = await Item.findAll({
                 where: filters
             });
-
-            if(cart[0] == undefined || cart[0] == null && req.query) {
-                return res.json({
-                    error: 'Not available results to this search!'
-                });
-            }
-
+            
             if(cart[0] == undefined || cart[0] == null) {
-                return res.json({
-                    message: 'Your cart is current empty!'
-                })
+                if(filterSize === 0) {
+                    return res.json({
+                        message: 'Your cart is current empty!'
+                    });
+                }
+
+                else {
+                    return res.json({
+                        error: 'Not available results to this search!'
+                    });
+                }
             }
-    
+        
             return res.json(cart);
         }
 
@@ -95,6 +98,13 @@ module.exports = {
     },
 
     async deleteItem(req, res) {
+
+        if(!req.body.id) {
+            return res.json({
+                error: 'Missing item id!'
+            });
+        }
+
         const id = req.body.id;
 
         const item = await Item.destroy({
