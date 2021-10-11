@@ -28,4 +28,4 @@ test('Testing without pass data to update', async () => {
     });
 
     expect(response.data.error).toBeTruthy();
-})
+});

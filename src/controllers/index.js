@@ -27,10 +27,16 @@ module.exports = {
                 where: filters
             });
 
-            if(cart[0] == undefined || cart[0] == null) {
+            if(cart[0] == undefined || cart[0] == null && req.query) {
                 return res.json({
                     error: 'Not available results to this search!'
                 });
+            }
+
+            if(cart[0] == undefined || cart[0] == null) {
+                return res.json({
+                    message: 'Your cart is current empty!'
+                })
             }
     
             return res.json(cart);
@@ -84,6 +90,18 @@ module.exports = {
                 error: "Not founded item!"
             })
         }
+
+        return res.json(item);
+    },
+
+    async deleteItem(req, res) {
+        const id = req.body.id;
+
+        const item = await Item.destroy({
+            where: {
+                id: id
+            }
+        });
 
         return res.json(item);
     }
