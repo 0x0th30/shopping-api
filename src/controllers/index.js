@@ -1,11 +1,10 @@
-const { response } = require('express');
 const Item = require('../models/Item');
 
 module.exports = {
     async storeItem (req, res) {
 
         if(!req.body.item || !req.body.quantity) {
-            return res.status(400).json({ 
+            return res.json({ 
                 error: 'Missing arguments!' 
             });
         }
@@ -17,7 +16,7 @@ module.exports = {
 
         item = await Item.create(item);
 
-        res.json(item);
+        return res.json(item);
     },
 
     async viewCart(req, res) {
@@ -29,7 +28,7 @@ module.exports = {
             });
 
             if(cart[0] == undefined || cart[0] == null) {
-                return res.status(400).json({
+                return res.json({
                     error: 'Not available results to this search!'
                 });
             }
@@ -38,7 +37,7 @@ module.exports = {
         }
 
         catch(err) {
-            return res.status(400).json({
+            return res.json({
                 error: 'Invalid search!'
             });
         }
@@ -47,13 +46,13 @@ module.exports = {
     async updateItem(req, res) {
         
         if(!req.body.id) {
-            return res.status(400).json({
+            return res.json({
                 error: 'Missing item id!'
             });
         }
 
         if(!req.body.item && !req.body.quantity) {
-            return res.status(400).json({
+            return res.json({
                 error: 'Nothing to update!'
             })
         }

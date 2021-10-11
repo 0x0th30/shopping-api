@@ -13,11 +13,8 @@ test('Testing item addition route availability', async () => {
     expect(testAvailability.status).toBe(200);
 })
 
-test('Testing database insert feature', async () => {
-    let item = {
-        item: 'energy drink',
-        quantity: 5
-    }
+test('Testing null body post request', async () => {
+    const testNullBody  = await axios.post('http://localhost:3333/items/create');
 
-    item = await Item.create(item);
-})
+    expect(testNullBody.data.error).toBeTruthy();
+});
