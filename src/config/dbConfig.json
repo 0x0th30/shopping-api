@@ -1,6 +1,6 @@
 {
     "dialect": "postgres",
-    "host": "172.17.0.2",
+    "host": "database",
     "database": "shopping_api",
     "username": "postgres",
     "password": "postgres",
