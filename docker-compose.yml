@@ -1,4 +1,13 @@
 services:
+  api:
+    build: .
+    ports:
+     - "3333:3333"
+    links:
+      - database
+    depends_on:
+      - migration
+
   database:
     image: postgres
     ports:
@@ -7,17 +16,7 @@ services:
        - ./create-database.sql:/docker-entrypoint-initdb.d/create-database.sql
     environment:
       POSTGRES_PASSWORD: "postgres"
-
-  api:
-    build: .
-    command: yarn start
-    ports:
-      - "3333:3333"
-    links:
-      - database
-    depends_on: 
-      - migration
-
+    
   migration:
     build: .
     command: yarn sequelize db:migrate
@@ -25,3 +24,4 @@ services:
       - database
     depends_on:
       - database
+      

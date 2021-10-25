@@ -1,1 +1,1 @@
-CREATE DATABASE shopping_api; 
+CREATE DATABASE shopping_api;  
